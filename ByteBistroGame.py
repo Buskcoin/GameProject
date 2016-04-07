@@ -17,12 +17,12 @@ def playGame():
   prompt(currentRoom) # displays the current room and description to the user
   
   while(gameRun): # gameRun is True, sets to False when game is over
-    input = raw_input("What would you like to do? ")
+    input = requestString("What would you like to do? ")
     
     # begining of main if-else statements. Each case is a user input of type: string
     if input == "help":
       displayHelp()
-      input = raw_input("Press ENTER to continue. ") # pauses the screen at the help dialouge
+      input = requestString("Press ENTER to continue. ") # pauses the screen at the help dialouge
       prompt(currentRoom) # re-print the current room information
       continue
     # main choices for directions of movement
@@ -35,7 +35,7 @@ def playGame():
       prompt(currentRoom) # displays current room information
     elif input == "open":
       if doesCommandExist(currentRoom): # checks to see if there are objects in the room
-        object = raw_input("What would you like to open? ") # asks user what object they would like to open
+        object = requestString("What would you like to open? ") # asks user what object they would like to open
         string = ""
         
         #loops through objects in room and executes command "open" using the object
