@@ -16,7 +16,7 @@ def playGame():
   currentRoom = getNextRoom("Den") # set currentRoom to "Den" to start the game
   prompt(currentRoom) # displays the current room and description to the user
   
-  while(gameRun):
+  while(gameRun): # gameRun is true, sets to false when game is over
     input = raw_input("What would you like to do? ")
     
     # begining of main if-else statements. Each case is a user input of type: string
@@ -32,11 +32,13 @@ def playGame():
     elif input == "exit":
       break # exit kills the main loop condition
     elif input == "look":
-      prompt(currentRoom) # 
+      prompt(currentRoom) # displays current room information
     elif input == "open":
-      if doesCommandExist(currentRoom):
-        object = raw_input("What would you like to open? ")
+      if doesCommandExist(currentRoom): # checks to see if there are objects in the room
+        object = raw_input("What would you like to open? ") # asks user what object they would like to open
         string = ""
+        
+        #loops through objects in room and executes command "open" using the object
         for i in range(0, len(currentRoom[4])):
           if currentRoom[4][i] == object:
             string = executeCommand("open", object, currentRoom[5][i])
@@ -45,11 +47,12 @@ def playGame():
         else:
           printNow("That object does not exist. ")
       else:
-        printNow("There is nothing to open in this room. ")
+        printNow("There is nothing to open in this room. ") # if there are no objects
       currentRoom = getNextRoom(currentRoom[0])
     else:
         printNow("I can't do that for you. ")
 
+# function for getting the next room after a player moves direction
 def getNextRoom(string):
   if string == "Den":
     return getDen()
@@ -67,7 +70,8 @@ def getNextRoom(string):
     return getConservatory()
   elif string == "Deck":
     return getDeck()
-    
+
+# function to pull array information from Lounge
 def getLounge():
   return ["Lounge", 
          ["north", "south", "west"], 
@@ -76,6 +80,7 @@ def getLounge():
          ["portrait"], 
          ["\nThere is nothing behind this portrait, your imagination is playing with your head"]]
 
+# function to pull array information from Den
 def getDen():    
   return ["Den", 
          ["north", "east"],
@@ -98,7 +103,7 @@ def getStudy():
          ["Den", "Lounge"], 
          "You've entered the study.  There is a book on the table and a bottled beverage.  You take a seat and rest for a bit.", 
          ["book","beverage"], 
-         ["hair pin", "You open the beverage and take a sip.  A sharp pain roars through your chest and you fall to the floor grasping for air.\nYou died.  Better luck next time!"]]
+         ["hair pin", "You take a sip... The refreshing feeling sweeps over your body. You stand there shivering because it's so good. "]]
 
 def getBallroom():
   return ["Ballroom", 
@@ -171,7 +176,8 @@ def getLibrary():
            "You step into the library. A large door is north of you.  It appears to be solid gold", 
            ["door"], 
            ["It wont budge. You need a key to open this door."]]
-    
+
+# sets global object variables for the player    
 def executeCommand(command, container, object):
   if command == "open":
     if object == "golden key":
@@ -198,20 +204,24 @@ def executeCommand(command, container, object):
     else:
       return "You have opened the " + container + " and found a(n) " + object
 
+# checks to see if there are objects in a room, returns True if there are
 def doesCommandExist(room):
   return len(room[5])
-  
+
+# displays current room information  
 def prompt(currentRoom):
   printNow("\nYou are currently in the " + currentRoom[0])
   printNow(currentRoom[3])
   printPossibleDirections(currentRoom)
 
+# sets the player into the next room based on the direction they choose
 def goDirection(cur, dir):
   for i in range(0, len(cur[1])):
     if cur[1][i] == dir:
       return getNextRoom(cur[2][i])
   return cur
 
+# prints the directions possible for player to move
 def printPossibleDirections(room):
   output = "Your possible directions are: "
   rooms = ""
@@ -222,7 +232,8 @@ def printPossibleDirections(room):
       rooms = rooms + ", " + room[1][i]
   printNow(output + rooms)
   printNow("Enter 'help' for more options")
-            
+
+# prints out all commands and their practical function
 def displayHelp():
   printNow("You open your eyes and find yourself in an unfamilliar mansion.  You can't remember what happened to you.  You take a look around and wonder 'Where am I'.") 
   printNow("\nAvailable commands: ")
