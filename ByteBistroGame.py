@@ -3,12 +3,12 @@
 # April 4, 2016
 
 # Global variables for player items in game
-hasGoldenKey = false
-hasHairPin = false
-hasRope = false
-doorIsOpen = false
-windowIsOpen = false
-gameRun = true # main condition for game loop
+hasGoldenKey = False
+hasHairPin = False
+hasRope = False
+doorIsOpen = False
+windowIsOpen = False
+gameRun = True # main condition for game loop
 
 def playGame():
 
@@ -16,7 +16,7 @@ def playGame():
   currentRoom = getNextRoom("Den") # set currentRoom to "Den" to start the game
   prompt(currentRoom) # displays the current room and description to the user
   
-  while(gameRun): # gameRun is true, sets to false when game is over
+  while(gameRun): # gameRun is True, sets to False when game is over
     input = raw_input("What would you like to do? ")
     
     # begining of main if-else statements. Each case is a user input of type: string
@@ -114,14 +114,14 @@ def getBallroom():
          []]
 
 def getConservatory():
-  if windowIsOpen == true:
+  if windowIsOpen == True:
     return ["Conservatory", 
            ["south", "west"], 
            ["Library", "Deck"], 
            "You've entered the conservatory.  On the west side of the room you see the open window that leads to a deck.  A chest sits next to it.", 
            ["window","chest"], 
            ["The window is already open! A slight breeze enters the room.", "rope"]]  
-  elif hasHairPin == true:
+  elif hasHairPin == True:
     return ["Conservatory", 
            ["south"], ["Library"], 
            "You've entered the conservatory.  On the west side of the room you see a window that leads to a deck.  A chest sits next to it.", 
@@ -136,10 +136,10 @@ def getConservatory():
            ["The window is locked. Only if you had something to pick the lock. Maybe you should get some rest.","rope"]]
 
 def getDeck():
-  if hasRope == true:
+  if hasRope == True:
     printNow("You use the rope to climb down from the deck.  You reached the ground safely.  You've escaped the mansion.")
     global gameRun
-    gameRun = false   
+    gameRun = False   
     return ["clear!", 
            ["endless"], 
            [""], 
@@ -155,14 +155,14 @@ def getDeck():
            []]
 
 def getLibrary():
-  if doorIsOpen == true:
+  if doorIsOpen == True:
     return ["Library", 
            ["north", "south", "east"], 
            ["Conservatory", "Lounge", "Ballroom"], 
            "You are in the library and you stand before the open gold door", 
            ["door"], 
            ["... wait the door is already open!"]]
-  elif hasGoldenKey == true:
+  elif hasGoldenKey == True:
     return ["Library", 
            ["south", "east"], 
            ["Lounge", "Ballroom"], 
@@ -182,22 +182,22 @@ def executeCommand(command, container, object):
   if command == "open":
     if object == "golden key":
       global hasGoldenKey
-      hasGoldenKey = true
+      hasGoldenKey = True
     if object == "hair pin":
       global hasHairPin
-      hasHairPin = true
+      hasHairPin = True
     if object == "rope":
       global hasRope
-      hasRope = true
+      hasRope = True
     if container == "door":
-      if hasGoldenKey == true:
+      if hasGoldenKey == True:
         global doorIsOpen
-        doorIsOpen = true
+        doorIsOpen = True
       return object
     if container == "window":
-      if hasHairPin == true:
+      if hasHairPin == True:
         global windowIsOpen
-        windowIsOpen = true
+        windowIsOpen = True
       return object
     if container == "letter":
        return object
